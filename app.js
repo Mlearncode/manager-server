@@ -10,6 +10,7 @@ const router = require('koa-router')()
 const users = require('./routes/users')
 const jwt = require('jsonwebtoken')
 const koajwt = require('koa-jwt')
+const util = require('./utils/util')
 
 // error handler
 onerror(app)

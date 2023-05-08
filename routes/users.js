@@ -41,7 +41,7 @@ router.post('/login', async (ctx) => {
 			ctx.body = util.fail('账号或密码错误')
 		}
 	} catch (error) {
-		ctx.body = util.fail(`查询异常:${error.stack}`)
+		ctx.body = util.fail(error.msg)
 	}
 })
 
