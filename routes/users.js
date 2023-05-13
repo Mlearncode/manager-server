@@ -36,11 +36,9 @@ router.post('/login', async (ctx) => {
 			'shiro',
 			{ expiresIn: '1h' }
 		)
-		// const mes = User.findOneAndUpdate({ userName }, { lastLoginTime: new Date() })
+		const mes = User.findOneAndUpdate({ userName }, { lastLoginTime: new Date() })
 		if (res) {
 			data.token = token
-			// const sus = await User.findOne({ userName},'lastLoginTime')
-			console.log("token=>",token);
 			ctx.body = util.success(data)
 		} else {
 			ctx.body = util.fail('账号或密码错误')

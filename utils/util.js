@@ -51,7 +51,6 @@ module.exports = {
       let item = rootList[i]
 			if (String(item.parentId.slice().pop()) == String(id)) {
         list.push(item._doc)
-        console.log('list=>',list);
       }
     }
     
