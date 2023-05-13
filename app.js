@@ -46,9 +46,9 @@ app.use(async (ctx, next) => {
 })
 
 //过滤接口,进行校验
-// app.use(koajwt({ secret: 'shiro' }).unless({
-// 	path: [/^\/api\/users\/login/]
-// }))
+app.use(koajwt({ secret: 'shiro' }).unless({
+	path: [/^\/api\/users\/login/]
+}))
 
 router.prefix("/api")
 

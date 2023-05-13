@@ -104,14 +104,23 @@ router.post('/operate', async (ctx) => {
 			ctx.body = util.fail('参数为空', util.CODE.PARAM_ERROR)
 			return
 		}
-		const doc = await Counter.findOneAndUpdate({ _id: 'userId' }, { $inc: { sequence_value: 1 } }, { new: true })
-		console.log('doc=>', doc);
-		const res = await User.findOne({ $or: [{ userName }, { userEmail }] }, '_id username userEmail')
+		const doc = await Counter.findOneAndUpdate(
+			{ _id: 'userId' },
+			{ $inc: { sequence_value: 1 } },
+			{ new: true }
+		)
+		console.log('doc=>', doc)
+		const res = await User.findOne(
+			{ $or: [{ userName }, { userEmail }] },
+			'_id username userEmail'
+		)
 		if (res) {
-			ctx.body = util.fail(`系统监测到有重复的用户, 信息如下: ${res.userName} - ${res.userEmail}`)
+			ctx.body = util.fail(
+				`系统监测到有重复的用户, 信息如下: ${res.userName} - ${res.userEmail}`
+			)
 		} else {
 			try {
-				const user =new User({
+				const user = new User({
 					userId: doc.sequence_value,
 					userName,
 					userPwd: md5('123456'),
@@ -121,7 +130,8 @@ router.post('/operate', async (ctx) => {
 					job,
 					state,
 					deptId,
-					mobile
+					mobile,
+					createTime: new Date(),
 				})
 				user.save()
 				ctx.body = util.success({}, '用户创建成功')
