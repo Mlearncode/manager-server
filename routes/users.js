@@ -7,6 +7,7 @@ const Counter = require('./../models/counterSchema')
 const util = require('./../utils/util')
 const jwt = require('jsonwebtoken')
 const md5 = require('md5')
+const { listenerCount } = require('./../models/userSchema')
 
 router.prefix('/users')
 
@@ -154,6 +155,16 @@ router.post('/operate', async (ctx) => {
 		} catch (error) {
 			ctx.body = util.fail(error.stack, '更新失败')
 		}
+	}
+})
+
+//获取全部用户列表
+router.get('/all/list', async (ctx) => {
+	try {
+		const list = await User.find({}, "userId userName userEmail")
+		ctx.body = util.success(list)
+	} catch (error) {
+		ctx.body = util.fail(error.stack)
 	}
 })
 
