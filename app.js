@@ -9,6 +9,7 @@ const log4js = require('./utils/log4j')
 const router = require('koa-router')()
 const users = require('./routes/users')
 const menus = require('./routes/menus')
+const roles = require('./routes/roles')
 const jwt = require('jsonwebtoken')
 const koajwt = require('koa-jwt')
 const util = require('./utils/util')
@@ -58,6 +59,7 @@ router.prefix("/api")
 //子路由
 router.use(users.routes(), users.allowedMethods())
 router.use(menus.routes(), menus.allowedMethods())
+router.use(roles.routes(), roles.allowedMethods())
 //所有路由
 app.use(router.routes(), router.allowedMethods())
 
