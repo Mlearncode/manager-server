@@ -32,7 +32,6 @@ router.get('/list', async (ctx) => {
 		const query = Leave.find(params)
 		const list = await query.skip(skipIndex).limit(page.pageSize)
 		const total = await Leave.countDocuments(params)
-    console.log("=>",query);
 		ctx.body = util.success({
 			page: {
 				...page,
@@ -43,6 +42,20 @@ router.get('/list', async (ctx) => {
 	} catch (error) {
 		ctx.body = util.fail(`查询失败: ${error.stack}`)
 	}
+})
+
+router.get('/count', async (ctx) => {
+  let authorization = ctx.request.headers.authorization
+  let { data } = util.decoded(authorization)
+  try {
+    let params = {}
+    params.curAuditUserName = data.userName
+    params.$or = [{ applyState: 1 }, { applyState: 2 }]
+    const total = await Leave.countDocuments(params)
+    ctx.body = util.success(total)
+  } catch (error) {
+    ctx.body = util.fail(`查询异常: ${error.message}`)
+  }
 })
 
 router.post('/operate', async (ctx) => {
