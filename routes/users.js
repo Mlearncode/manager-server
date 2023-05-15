@@ -25,7 +25,7 @@ router.post('/login', async (ctx) => {
 		const res = await User.findOne(
 			{
 				userName,
-				userPwd,
+				userPwd: userPwd,
 			},
 			'userId userName state role deptId roleList lastLoginTime'
 		)
